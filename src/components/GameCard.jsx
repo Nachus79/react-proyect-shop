@@ -1,6 +1,6 @@
 const GameCard = ({ game }) => {
     return (
-        <div className="col-md-4 mb-4">
+        <div className="col-6 col-md-3 mb-4">
             <div className="card h-100 shadow-sm">
                 <img src={game.thumb} className="card-img-top" alt={game.title} />
                 <div className="card-body">
