@@ -19,12 +19,14 @@ const App = () => {
           id: deal.dealID,
           title: deal.title,
           description: `Precio normal: $${deal.normalPrice}`,
-          price: deal.salePrice,
-          isNew: deal.releaseDate > Date.now() / 1000 - 60 * 60 * 24 * 30,
+          price: parseFloat(deal.salePrice),
+          normalPrice: parseFloat(deal.normalPrice),
           thumb: deal.thumb,
           dealLink: `https://www.cheapshark.com/redirect?dealID=${deal.dealID}`,
-          rating: deal.dealRating || 0,
+          rating: parseFloat(deal.dealRating) || 0,
+          internalName: deal.internalName || deal.title,
         }));
+
         setGames(gamesData);
       } catch (error) {
         console.error("Error fetching games:", error);
@@ -33,19 +35,29 @@ const App = () => {
     fetchGames();
   }, []);
 
-  const filteredGames = games.filter(
-    (game) =>
-      (filter !== "new" || game.isNew) &&
-      game.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredGames = games.filter((game) => {
+    if (filter === "all") {
+      return true;
+    }
+    if (filter === "internalName") {
+      return game.internalName.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+    return true;
+  });
 
   const sortedGames = [...filteredGames].sort((a, b) => {
     if (sortOption === "dealRating") {
-      return b.rating - a.rating;
+      return (b.rating || 0) - (a.rating || 0);
     } else if (sortOption === "salePrice") {
-      return a.price - b.price;
+      return (a.price || Infinity) - (b.price || Infinity);
+    } else if (sortOption === "internalName") {
+      return (a.internalName || a.title || "").localeCompare(
+        b.internalName || b.title || ""
+      );
+    } else if (sortOption === "normalPrice") {
+      return (a.normalPrice || Infinity) - (b.normalPrice || Infinity);
     }
-    return a.id - b.id; 
+    return 0;
   });
 
   return (
