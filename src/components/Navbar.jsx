@@ -1,56 +1,152 @@
-import React, { useState } from "react";
-import Filter from "./Filter";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { fetchGames } from "../utils/api";
 
-const Navbar = ({ onFilterChange, onSearch, onSortChange }) => {
+const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const navigate = useNavigate();
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    onSearch(e.target.value);
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (searchTerm) {
+        const allGames = await fetchGames();
+        const filteredGames = allGames.filter((game) =>
+          game.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setSuggestions(filteredGames);
+      } else {
+        setSuggestions([]);
+      }
+    };
+
+    fetchSuggestions();
+  }, [searchTerm]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm) {
+      navigate(`/search?query=${searchTerm}`);
+      setSearchTerm(""); // Limpiar el campo de búsqueda
+      setSuggestions([]); // Limpiar las sugerencias
+    }
   };
 
-  const handleHomeClick = () => {
-    setSearchTerm("");
-    onFilterChange("all");
-    onSortChange("all");
+  const handleSuggestionClick = (gameName) => {
+    setSearchTerm(gameName);
+    navigate(`/search?query=${gameName}`); // Realizar la búsqueda automáticamente
+    setSuggestions([]); // Limpiar las sugerencias
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+    <nav
+      className="navbar navbar-expand-lg"
+      style={{ backgroundColor: "#8A2BE2" }}
+    >
+      {" "}
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          Player & Vicious
-        </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+        <Link
+          className="navbar-brand"
+          to="/"
+          style={{ color: "white", fontWeight: "bold" }}
         >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <div className="d-flex ms-auto">
-            <button
-              className="btn btn-outline-primary me-2"
-              onClick={handleHomeClick}
-            >
-              Home
-            </button>
-            <input
-              type="text"
-              className="form-control me-2"
-              placeholder="Buscar..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            <Filter
-              onFilterChange={onFilterChange}
-              onSortChange={onSortChange}
-            />
+          Players & Vicious
+        </Link>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link
+                className="nav-link border border-white text-white"
+                to="/"
+                style={{
+                  backgroundColor: "transparent",
+                  fontWeight: "bold",
+                  padding: "5px 10px",
+                  marginRight: "5px",
+                }}
+              >
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link border border-white text-white"
+                to="/news"
+                style={{
+                  backgroundColor: "transparent",
+                  fontWeight: "bold",
+                  padding: "5px 10px",
+                  marginRight: "5px",
+                }}
+              >
+                News
+                </Link>
+                </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link border border-white text-white"
+                to="/cart"
+                style={{
+                  backgroundColor: "transparent",
+                  fontWeight: "bold",
+                  padding: "5px 10px",
+                  marginRight: "5px",
+                }}
+              >
+                Cart
+              </Link>
+            </li>
+          </ul>
+          <div className="d-flex position-relative ms-auto">
+            <form onSubmit={handleSearch} className="d-flex">
+              <input
+                type="text"
+                className="form-control me-2"
+                placeholder="Search games..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button
+                className="btn btn-warning"
+                style={{
+                  color: "black",
+                  fontWeight: "bold",
+                  marginLeft: "5px",
+                }}
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+            {suggestions.length > 0 && (
+              <ul
+                className="list-group position-absolute"
+                style={{ zIndex: 1000, width: "100%", top: "100%" }}
+              >
+                {suggestions.map((game) => (
+                  <li
+                    key={game.id}
+                    className="list-group-item list-group-item-action d-flex align-items-center"
+                    onClick={() => handleSuggestionClick(game.name)}
+                  >
+                    <div style={{ flex: "0 0 30%", height: "100%" }}>
+                      <img
+                        src={game.background_image}
+                        alt={game.name}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                    <div style={{ flex: "1", paddingLeft: "10px" }}>
+                      <span>{game.name}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
