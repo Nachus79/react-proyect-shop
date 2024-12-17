@@ -56,10 +56,9 @@ const Navbar = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link
-                className="nav-link border border-white text-white"
+                className="btn btn-light"
                 to="/"
                 style={{
-                  backgroundColor: "transparent",
                   fontWeight: "bold",
                   padding: "5px 10px",
                   marginRight: "5px",
@@ -70,24 +69,22 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link
-                className="nav-link border border-white text-white"
+                className="btn btn-light"
                 to="/news"
                 style={{
-                  backgroundColor: "transparent",
                   fontWeight: "bold",
                   padding: "5px 10px",
                   marginRight: "5px",
                 }}
               >
                 News
-                </Link>
-                </li>
+              </Link>
+            </li>
             <li className="nav-item">
               <Link
-                className="nav-link border border-white text-white"
+                className="btn btn-light"
                 to="/cart"
                 style={{
-                  backgroundColor: "transparent",
                   fontWeight: "bold",
                   padding: "5px 10px",
                   marginRight: "5px",

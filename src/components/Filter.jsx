@@ -12,7 +12,7 @@ const Filter = ({
   const [releaseDateFilter, setReleaseDateFilter] = useState("");
 
   const handlePriceChange = (e) => {
-    const newPrice = e.target.value;
+    const newPrice = parseFloat(e.target.value); //AÑADO "PARSEFLOAT PARA ASEGURARME DE QUE EL PROGRAMA INTERPRETA BIEN LOS DECIMALES"
     setPrice(newPrice);
     onPriceFilter(newPrice); //FILTRO PARA EL PRECIO
   };
@@ -32,7 +32,7 @@ const Filter = ({
   const handleReleaseDateChange = (e) => {
     const value = e.target.value;
     setReleaseDateFilter(value);
-    onReleaseDateFilter(value); //FILTRO PARA LA FECHA DE LANZAMIENTO.
+    onReleaseDateFilter(value); //FILTRO PARA LA FECHA DE LANZAMIENTO
   };
 
   return (
@@ -48,12 +48,13 @@ const Filter = ({
             value={price}
             onChange={handlePriceChange}
           />
-          <div>Price: ${price}</div>
+          <div>Price: 0$ to ${price}</div>
         </div>
-        {/*DEPLEGABLES*/}
+        {/*DEPLEGABLES (SE PISAN UNOS A OTROS)*/}
         <div>
           <h5>By Metacritic</h5>
           <select value={metacriticOrder} onChange={handleMetacriticChange}>
+            <option value="">No filter</option>
             <option value="asc">Low to High</option>
             <option value="desc">High to Low</option>
           </select>
@@ -62,6 +63,7 @@ const Filter = ({
         <div>
           <h5>By ratings</h5>
           <select value={ratingsOrder} onChange={handleRatingsChange}>
+            <option value="">No filter</option>
             <option value="asc">Low to High</option>
             <option value="desc">High to Low</option>
           </select>
@@ -70,7 +72,7 @@ const Filter = ({
         <div>
           <h5>By release date</h5>
           <select value={releaseDateFilter} onChange={handleReleaseDateChange}>
-            <option value="">Select Release Date</option>
+            <option value="">No filter</option>
             <option value="recent">Recent Games</option>
             <option value="older">Older Games</option>
           </select>

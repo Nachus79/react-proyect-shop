@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import SearchResults from "./pages/SearchResults";
 import GameList from "./components/GameList"; 
 import GameDetails from "./components/GameDetails";
+import News from "./pages/News";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/games" element={<GameList />} /> 
           <Route path="/games/:id" element={<GameDetails />} />
+          <Route path="/news" element={<News />} />
         </Routes>
       </div>
     </Router>

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { fetchGames } from "../utils/api"; // Asegúrate de que esta función esté correctamente importada
-import GameCard from "./GameCard"; // Asegúrate de que este componente esté creado para mostrar cada juego
+import { fetchGames } from "../utils/api"; 
+import GameCard from "./GameCard";
 
 const GameList = () => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const gamesPerPage = 12;
+
 
   useEffect(() => {
     const loadGames = async () => {
       try {
-        const response = await fetchGames(); // Llama a la función que hace la solicitud a la API
-        setGames(response); // Asigna los resultados al estado
+        const response = await fetchGames(); 
+        setGames(response); 
       } catch (err) {
         setError("Error fetching games");
       } finally {
@@ -24,7 +24,7 @@ const GameList = () => {
     loadGames();
   }, []);
 
-  // Calcular los juegos a mostrar en la página actual
+
   const indexOfLastGame = currentPage * gamesPerPage;
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
   const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
