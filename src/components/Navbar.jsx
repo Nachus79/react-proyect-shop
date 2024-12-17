@@ -43,108 +43,80 @@ const Navbar = () => {
       className="navbar navbar-expand-lg"
       style={{ backgroundColor: "#8A2BE2" }}
     >
-      {" "}
       <div className="container-fluid">
-        <Link
-          className="navbar-brand"
-          to="/"
-          style={{ color: "white", fontWeight: "bold" }}
-        >
-          Players & Vicious
-        </Link>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <div className="d-flex align-items-center">
+          <span className="navbar-brand text-white fw-bold">
+            Players & Vicious
+          </span>
+        </div>
+
+        <div className="d-flex justify-content-center flex-grow-1">
+          <form
+            onSubmit={handleSearch}
+            className="d-flex"
+            style={{ gap: "0.25rem" }}
+          >
+            {" "}
+            {/*REVISAR EL NÚMERO...¿DEMASAIDO BAJO? */}
+            <input
+              type="text"
+              className="form-control me-2"
+              placeholder="Search games..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button
+              className="btn btn-warning fw-bold"
+              type="submit"
+              style={{ color: "black" }}
+            >
+              Search
+            </button>
+          </form>
+          {suggestions.length > 0 && (
+            <ul
+              className="list-group position-absolute"
+              style={{ zIndex: 1000, width: "100%", top: "100%" }}
+            >
+              {suggestions.map((game) => (
+                <li
+                  key={game.id}
+                  className="list-group-item list-group-item-action d-flex align-items-center"
+                  onClick={() => handleSuggestionClick(game.name)}
+                >
+                  <div style={{ flex: "0 0 30%", height: "100%" }}>
+                    <img
+                      src={game.background_image}
+                      alt={game.name}
+                      style={{
+                        width: "10%",
+                        height: "10%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                  <div style={{ flex: "1", paddingLeft: "10px" }}>
+                    <span>{game.name}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="d-flex ms-auto">
+          <ul className="navbar-nav" style={{ gap: "0.25rem" }}>
             <li className="nav-item">
-              <Link
-                className="btn btn-light"
-                to="/"
-                style={{
-                  fontWeight: "bold",
-                  padding: "5px 10px",
-                  marginRight: "5px",
-                }}
-              >
+              <Link className="btn btn-light fw-bold" to="/">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className="btn btn-light"
-                to="/news"
-                style={{
-                  fontWeight: "bold",
-                  padding: "5px 10px",
-                  marginRight: "5px",
-                }}
-              >
-                News
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className="btn btn-light"
-                to="/cart"
-                style={{
-                  fontWeight: "bold",
-                  padding: "5px 10px",
-                  marginRight: "5px",
-                }}
-              >
+              <Link className="btn btn-light fw-bold" to="/cart">
                 Cart
               </Link>
             </li>
           </ul>
-          <div className="d-flex position-relative ms-auto">
-            <form onSubmit={handleSearch} className="d-flex">
-              <input
-                type="text"
-                className="form-control me-2"
-                placeholder="Search games..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <button
-                className="btn btn-warning"
-                style={{
-                  color: "black",
-                  fontWeight: "bold",
-                  marginLeft: "5px",
-                }}
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
-            {suggestions.length > 0 && (
-              <ul
-                className="list-group position-absolute"
-                style={{ zIndex: 1000, width: "100%", top: "100%" }}
-              >
-                {suggestions.map((game) => (
-                  <li
-                    key={game.id}
-                    className="list-group-item list-group-item-action d-flex align-items-center"
-                    onClick={() => handleSuggestionClick(game.name)}
-                  >
-                    <div style={{ flex: "0 0 30%", height: "100%" }}>
-                      <img
-                        src={game.background_image}
-                        alt={game.name}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </div>
-                    <div style={{ flex: "1", paddingLeft: "10px" }}>
-                      <span>{game.name}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
         </div>
       </div>
     </nav>
