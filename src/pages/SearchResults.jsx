@@ -21,26 +21,43 @@ const SearchResults = () => {
     fetchData();
   }, [query]);
 
+  const getPrice = (name) => {
+    let sum = 0;
+    for (let i = 0; i < name.length; i++) {
+      let charCode = name.charCodeAt(i);
+      sum += charCode * (i + 1);
+    }
+    let hashValue = sum % 1000;
+    let price = 10 + (hashValue / 1000) * 60;
+    return price.toFixed(2);
+  };
+
+  const handleAddToCart = (game) => {
+    const storedItems = JSON.parse(localStorage.getItem("cart")) || [];
+    storedItems.push(game);
+    localStorage.setItem("cart", JSON.stringify(storedItems));
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="text-center text-white">Search Results for "{query}"</h1>
       {loading ? (
         <p className="text-white">Loading...</p>
       ) : (
-        <div className="row">
-          {games.length === 0 ? (
+        <div className="row g-3">
+          {games.length === 0 && (
             <p className="text-white">No results found.</p>
-          ) : (
+          )}
+          {games.length > 0 &&
             games.map((game) => (
-              <div className="col-md-4" key={game.id}>
+              <div className="col-md-3" key={game.id}>
                 <GameCard
                   game={game}
-                  price={game.price}
-                  onAddToCart={() => {}}
+                  price={getPrice(game.name)}
+                  onAddToCart={handleAddToCart}
                 />
               </div>
-            ))
-          )}
+            ))}
         </div>
       )}
     </div>

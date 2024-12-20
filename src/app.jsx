@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
@@ -6,12 +5,12 @@ import Navbar from "./components/Navbar";
 import SearchResults from "./pages/SearchResults";
 import GameList from "./components/GameList"; 
 import GameDetails from "./components/GameDetails";
-import News from "./pages/News";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (
     <Router>
-      <div>
+      <div className="bg-custom">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -19,7 +18,6 @@ const App = () => {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/games" element={<GameList />} /> 
           <Route path="/games/:id" element={<GameDetails />} />
-          <Route path="/news" element={<News />} />
         </Routes>
       </div>
     </Router>
