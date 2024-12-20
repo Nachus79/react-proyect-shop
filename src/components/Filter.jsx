@@ -6,7 +6,7 @@ const Filter = ({
   onRatingsFilter,
   onReleaseDateFilter,
 }) => {
-  const [price, setPrice] = useState(10);
+  const [price, setPrice] = useState(200);
   const [metacriticOrder, setMetacriticOrder] = useState("");
   const [ratingsOrder, setRatingsOrder] = useState("");
   const [releaseDateFilter, setReleaseDateFilter] = useState("");

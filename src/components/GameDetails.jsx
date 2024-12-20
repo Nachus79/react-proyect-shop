@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGameDetails } from "../utils/api";
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 
 const GameDetails = () => {
   const { id } = useParams(); // Obtiene el ID del juego de la URL
@@ -29,12 +29,37 @@ const GameDetails = () => {
 
   return (
     <div className="container mt-4">
-      <h1>{game.name}</h1> {/* Muestra el nombre del juego */}
-      <img src={game.background_image} className="img-fluid" alt={game.name} /> {/* Muestra la imagen de fondo */}
-      <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(game.description) }} /> {/* Renderiza la descripción como HTML, sanitizada */}
-      <p>Rating: {game.rating}</p> {/* Muestra la calificación */}
-      <p>Released: {game.released}</p> {/* Muestra la fecha de lanzamiento */}
-      <p>Metacritic: {game.metacritic}</p> {/* Muestra la calificación de Metacritic */}
+      <h1 className="text-center mb-4">{game.name}</h1>{" "}
+      {/* Muestra el nombre del juego */}
+      <img
+        src={game.background_image}
+        className="img-fluid rounded mb-4"
+        alt={game.name}
+      />{" "}
+      {/* Muestra la imagen de fondo */}
+      {/* USO UNA TARJETA DE BOOTSTRAP PARA MEJORAR LA PRESENTACIÓN*/}
+      <div className="card p-3 shadow-sm">
+        <h3 className="card-title">Description</h3>
+        <div
+          className="card-body text-justify"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(game.description),
+          }}
+        />
+      </div>
+      {/* DETALLES DEL JUEGO */}
+      <div className="mt-4">
+        <p><strong>Rating:</strong> {game.rating}</p>
+        <p><strong>Released:</strong> {game.released}</p>
+        <p><strong>Metacritic:</strong> {game.metacritic}</p>
+      {/*IMAGEN ADICIONAL (LA GALERÍA DE IMÁGENES NO FUNCIONA) */}
+        <img
+          src={game.background_image_additional}
+          className="img-fluid rounded mb-4"
+          style={{ width: "50%", height: "auto" }}
+          alt="Imágenes del juego"
+        />
+      </div>
     </div>
   );
 };
