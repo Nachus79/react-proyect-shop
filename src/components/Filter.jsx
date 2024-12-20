@@ -7,12 +7,12 @@ const Filter = ({
   onReleaseDateFilter,
 }) => {
   const [price, setPrice] = useState(10);
-  const [metacriticOrder, setMetacriticOrder] = useState("asc");
-  const [ratingsOrder, setRatingsOrder] = useState("asc");
+  const [metacriticOrder, setMetacriticOrder] = useState("");
+  const [ratingsOrder, setRatingsOrder] = useState("");
   const [releaseDateFilter, setReleaseDateFilter] = useState("");
 
   const handlePriceChange = (e) => {
-    const newPrice = parseFloat(e.target.value);
+    const newPrice = parseFloat(e.target.value); //PONGO PARSEFLOAT PORQUE SI NO CONFUNDE LOS PRECIOS (NO ENTIENDE LOS DECIMALES)
     setPrice(newPrice);
     onPriceFilter(newPrice);
   };

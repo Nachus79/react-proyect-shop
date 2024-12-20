@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -71,12 +71,6 @@ const Cart = () => {
                     onClick={() => removeFromCart(item)}
                   >
                     Remove
-                  </button>
-                  <button
-                    className="btn btn-info ml-2"
-                    onClick={() => handleGameInfo(item.id)} // Redirige a la página de detalles del juego
-                  >
-                    INFO
                   </button>
                 </div>
               </li>
