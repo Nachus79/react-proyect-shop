@@ -131,7 +131,10 @@ const Home = () => {
           Previous Page
         </button>
         <span>Page {currentPage}</span>
-        <button className="btn btn-secondary btn-warning" onClick={handleNextPage}>
+        <button
+          className="btn btn-secondary btn-warning"
+          onClick={handleNextPage}
+        >
           Next Page
         </button>
       </div>
