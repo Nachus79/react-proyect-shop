@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaTrashAlt } from "react-icons/fa"; //INSTALO LA LIBRERÍA DE ICONOS DE REACT (npm install react-icons) Y LA IMPORTO AQUÍ.
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -65,12 +66,15 @@ const Cart = () => {
                   <span className="text-dark">{item.name}</span>
                 </div>
                 <div className="d-flex align-items-center">
-                  <span className="text-success">${getPrice(item.name)}</span>
+                  <span className="text-success" style={{ fontSize: "1.5rem" }}>
+                    ${getPrice(item.name)}
+                  </span>
                   <button
-                    className="btn btn-danger ml-2"
+                    className="btn btn-link ml-2"
                     onClick={() => removeFromCart(item)}
+                    style={{ padding: 0, border: "none", background: "none" }}
                   >
-                    Remove
+                    <FaTrashAlt size={20} color="red" />{" "} {/*CON ESTO APARECERÁ EL ICONO DE PAPELERA*/}
                   </button>
                 </div>
               </li>
