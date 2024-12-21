@@ -17,19 +17,19 @@ const Filter = ({
     onPriceFilter(newPrice);
   };
 
-  const handleMetacriticChange = (e) => {
+  const handleMetacriticChange = (e) => { //FILTRO DE METACRITIC
     const order = e.target.value;
     setMetacriticOrder(order);
     onMetacriticFilter(order);
   };
 
-  const handleRatingsChange = (e) => {
+  const handleRatingsChange = (e) => { //FILTRO DE RATINGS
     const order = e.target.value;
     setRatingsOrder(order);
     onRatingsFilter(order);
   };
 
-  const handleReleaseDateChange = (e) => {
+  const handleReleaseDateChange = (e) => { //FILTRO DE ANTIGÜEDAD (MEJOR QUE EL DE FECHA)
     const value = e.target.value;
     setReleaseDateFilter(value);
     onReleaseDateFilter(value);
@@ -38,13 +38,13 @@ const Filter = ({
   return (
     <div className="mb-4">
       <h3>Filter:</h3>
-      <div className="d-flex flex-row justify-content-between">
+      <div className="d-flex flex-row justify-content-between ">
         <div>
           <h5>By price</h5>
           <input
             type="range"
             min="10"
-            max="200"
+            max="200" //ESTO SE PUEDE REVISAR Y EL DEL MÍNIMO TAMBIÉN 
             value={price}
             onChange={handlePriceChange}
           />
