@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import SearchResults from "./pages/SearchResults";
 import GameList from "./components/GameList"; 
 import GameDetails from "./components/GameDetails";
+import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/games" element={<GameList />} /> 
           <Route path="/games/:id" element={<GameDetails />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
