@@ -1,5 +1,20 @@
 import React from "react";
 
+const footerStyle = {  //ESTILO GENERAL DEL FOOTER
+  backgroundColor: "#000", //NEGRO, SE PUEDE REVISAR PERO PARECE QUE OFRECE BUEN CONTRASTE
+  color: "#fff",
+  textAlign: "center",
+  padding: "1rem",
+  top: "5px",
+  bottom: 0,
+  width: "100%",
+};
+
+const textStyle = {
+  margin: 0,
+  fontFamily: "Roboto", //PARA QUE QUEDE BIEN "DeI" ES MEJOR CON SERIFA.
+};
+
 const Footer = () => {
   return (
     <footer style={footerStyle}>
@@ -27,19 +42,6 @@ const Footer = () => {
   );
 };
 
-const footerStyle = {  //ESTILO GENERAL DEL FOOTER
-  backgroundColor: "#000", //NEGRO, SE PUEDE REVISAR PERO PARECE QUE OFRECE BUEN CONTRASTE
-  color: "#fff",
-  textAlign: "center",
-  padding: "1rem",
-  bottom: 0,
-  width: "100%",
-};
-
-const textStyle = {
-  margin: 0,
-  fontFamily: "Roboto", //PARA QUE QUEDE BIEN "DeI" ES MEJOR CON SERIFA.
-};
 
 
 export default Footer;
