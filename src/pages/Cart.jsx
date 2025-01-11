@@ -28,6 +28,11 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  const clearAllCart = () => {  //FUNCIÓN PARA BORRAR TODO EL CARRITO.
+    setCartItems([]); 
+    localStorage.setItem("cart", JSON.stringify([])); 
+  };
+
   const totalAmount = cartItems
     .reduce((total, item) => total + parseFloat(getPrice(item.name)), 0)
     .toFixed(2);
@@ -41,7 +46,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 mb-5">
       <h1 className="text-center text-white">Cart</h1>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
@@ -74,7 +79,7 @@ const Cart = () => {
                     onClick={() => removeFromCart(item)}
                     style={{ padding: 0, border: "none", background: "none" }}
                   >
-                    <FaTrashAlt size={20} color="red" />{" "} {/*CON ESTO APARECERÁ EL ICONO DE PAPELERA*/}
+                    <FaTrashAlt size={20} color="red" /> {/*CON ESTO APARECERÁ EL ICONO DE PAPELERA*/}
                   </button>
                 </div>
               </li>
@@ -83,9 +88,20 @@ const Cart = () => {
           <h3 className="mt-3 text-white">
             Total: <span className="text-success">${totalAmount}</span>
           </h3>
-          <button className="btn btn-warning mt-3" onClick={handlePay}>
-            Proceed to Payment
-          </button>
+          <div className="d-flex justify-content-between"> {/*LOS DOS BOTONES EN UN DIV Y ASÍ PODEMOS USAR EL FLEX (¿MEJOR UNO ENCIMA DEL OTRO)?*/}
+           {/*BOTÓN PARA BORRAR TODOS LOS ELEMENTOS (¿MEJOR QUE UN ICONO?)*/}
+            <button
+              className="btn btn-danger"
+              onClick={clearAllCart}
+              disabled={cartItems.length === 0}
+            >
+              Clear Cart
+            </button>
+            {/*BOTÓN PARA PROCEDER AL PAGO*/}
+            <button className="btn btn-warning" onClick={handlePay}>
+              Proceed to Payment
+            </button>
+          </div>
         </div>
       )}
     </div>

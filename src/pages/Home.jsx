@@ -122,7 +122,7 @@ const Home = () => {
         )}
       </div>
       {/* Menú de navegación de páginas */}
-      <div className="d-flex justify-content-between align-items-center mt-4">
+      <div className="d-flex justify-content-between align-items-center mt-4 mb-5">
         <button
           className="btn btn-secondary btn-warning"
           onClick={handlePreviousPage}

@@ -1,47 +1,58 @@
 import React from "react";
 
-const footerStyle = {  //ESTILO GENERAL DEL FOOTER
-  backgroundColor: "#000", //NEGRO, SE PUEDE REVISAR PERO PARECE QUE OFRECE BUEN CONTRASTE
+const footerStyle = {
+  //ESTILO GENERAL DEL FOOTER.
+  backgroundColor: "#000", //NEGRO, SE PUEDE REVISAR PERO PARECE QUE OFRECE BUEN CONTRASTE.
   color: "#fff",
   textAlign: "center",
   padding: "1rem",
-  top: "5px",
-  bottom: 0,
   width: "100%",
+  position: "relative",
+  bottom: 0,
+  left: 0,
+  marginTop: "auto",
 };
 
-const textStyle = {
+/*ESTILOS PARA QUE LOS BOTONES DE ABAJO ("POLÍTICA DE PRIVACIDAD"...) NO TENGAN SUBRAYADO Y EL TEXTO ESTÉ EN BLANCO.*/
+const textStyle = {  
+  textDecoration: "none",
+  color: "white",
   margin: 0,
-  fontFamily: "Roboto", //PARA QUE QUEDE BIEN "DeI" ES MEJOR CON SERIFA.
+  fontFamily: "Roboto", //PARA QUE QUEDE BIEN "DeI" ES MEJOR CON SERIFA (Y SEPARADO EN CASO NO QUE NO CARGUE LA FUENTE).
 };
 
 const Footer = () => {
   return (
     <footer style={footerStyle}>
-      <div className="d-flex justify-content-around mb-5">
-        <a>
-          <p style={textStyle}>Política de privacidad</p>
-        </a>
-        <a>
-          <p style={textStyle}>Protección de datos y política de cookies</p>
-        </a>
-        <a>
-          <p style={textStyle}>Aviso legal</p>
-        </a>
-        <a>
-          <p style={textStyle}>Contacto</p>
-        </a>
+      <div className="d-flex justify-content-around mb-0">
+
+        <button type="button" className="btn btn-link" style={textStyle}>
+          Política de privacidad
+        </button>
+        
+        <button type="button" className="btn btn-link" style={textStyle}>
+          Protección de datos y política de cookies
+        </button>
+
+        <button type="button" className="btn btn-link" style={textStyle}>
+          Aviso legal
+        </button>
+
+        <button type="button" className="btn btn-link" style={textStyle}>
+          Contacto
+        </button>
+
       </div>
+
       <div>
-      <p style={textStyle}>
-        © David Rojas e Iñaki Monzón (DeI Enterprises) 2025. Práctica del
-        Bootcamp Web Development Full Stack de Iron Hack.
-      </p>
+        <p style={textStyle}>
+          © David Rojas e Iñaki Monzón (D e I Enterprises) 2025. Práctica del
+          Bootcamp Web Development Full Stack de Iron Hack.
+        </p>
       </div>
+
     </footer>
   );
 };
-
-
 
 export default Footer;

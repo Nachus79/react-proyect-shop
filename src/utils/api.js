@@ -1,8 +1,6 @@
 import axios from "axios";
 
-
-
-const API_KEY = import.meta.env.VITE_API_KEY || "http://localhost:8000";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 
 export const fetchGames = async (page = 1, pageSize = 40) => {
@@ -24,3 +22,4 @@ export const fetchGenres = async () => {
   return response.data.results;
 };
 
+console.log(import.meta.env.VITE_API_KEY);
