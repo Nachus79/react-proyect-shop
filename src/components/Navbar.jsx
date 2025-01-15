@@ -47,7 +47,7 @@ const Navbar = ({ cartItems }) => {
 
         {/* EN ESTE DIV ESTÁN CONTENIDOS LOS DOS PRIMEROS BOTONES: "HOME" Y "CART"*/}
  
-        <div className="d-flex">
+        <div className="d-flex gap-10">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link
@@ -62,7 +62,7 @@ const Navbar = ({ cartItems }) => {
                 Home
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item ">
               <Link
                 className="btn btn-light"
                 to="/cart"
@@ -79,7 +79,7 @@ const Navbar = ({ cartItems }) => {
 
         {/*DIV PARA CONTENER EL TÍTULO DE LA PÁGINA */}
 
-        <div className="d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center flex-grow-1" > {/* EL TÍTULO SIGUE SIN ESTAR CENTRADO */}
         
           <Link
             className="navbar-brand"
@@ -88,7 +88,6 @@ const Navbar = ({ cartItems }) => {
               color: "white",
               fontWeight: "bold",
               textAlign: "center",
-              width: "100%",
             }}
           >
             Players & Vicious

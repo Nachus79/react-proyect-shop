@@ -3,6 +3,7 @@ import { fetchGames } from "../utils/api";
 import Filter from "../components/Filter";
 import GameCard from "../components/GameCard";
 
+
 const Home = () => {
   const [games, setGames] = useState([]);
   const [filteredGames, setFilteredGames] = useState([]);
@@ -121,7 +122,9 @@ const Home = () => {
           ))
         )}
       </div>
+
       {/* Menú de navegación de páginas */}
+
       <div className="d-flex justify-content-between align-items-center mt-4 mb-5">
         <button
           className="btn btn-secondary btn-warning"

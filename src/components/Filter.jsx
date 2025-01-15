@@ -1,5 +1,7 @@
 import { useState } from "react";
+import Select from "react-select"; //BIBLIOTECA PARA MEJORAR LOS ESTILOS DE LOS SELECT.
 
+//ESTADOS DE LOS FILTROS.
 const Filter = ({
   onPriceFilter,
   onMetacriticFilter,
@@ -7,44 +9,90 @@ const Filter = ({
   onReleaseDateFilter,
 }) => {
   const [price, setPrice] = useState(200);
-  const [metacriticOrder, setMetacriticOrder] = useState("");
-  const [ratingsOrder, setRatingsOrder] = useState("");
-  const [releaseDateFilter, setReleaseDateFilter] = useState("");
+  const [metacriticOrder, setMetacriticOrder] = useState(null);
+  const [ratingsOrder, setRatingsOrder] = useState(null);
+  const [releaseDateFilter, setReleaseDateFilter] = useState(null);
 
+  
+  const metacriticOptions = [
+    { value: "", label: "No filter" },
+    { value: "asc", label: "Low to High" },
+    { value: "desc", label: "High to Low" },
+  ];
+
+  const ratingsOptions = [
+    { value: "", label: "No filter" },
+    { value: "asc", label: "Low to High" },
+    { value: "desc", label: "High to Low" },
+  ];
+
+  const releaseDateOptions = [
+    { value: "", label: "No filter" },
+    { value: "recent", label: "Recent Games" },
+    { value: "older", label: "Older Games" },
+  ];
+
+ //ESTILOS PARA LOS SELECT (HAY QUE REVISAR LOS COLORES)
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      backgroundColor: "lightgray", 
+      color: "black", 
+      borderColor: "lightblue", 
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: "#ffffff", 
+      color: "#212529", 
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? "#007bff" 
+        : state.isFocused
+        ? "#e9ecef" 
+        : "#ffffff", 
+      color: state.isSelected ? "#ffffff" : "#212529", 
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#212529", 
+    }),
+  };
+
+  
   const handlePriceChange = (e) => {
-    const newPrice = parseFloat(e.target.value); //PONGO PARSEFLOAT PORQUE SI NO CONFUNDE LOS PRECIOS (NO ENTIENDE LOS DECIMALES)
+    const newPrice = parseFloat(e.target.value);
     setPrice(newPrice);
     onPriceFilter(newPrice);
   };
 
-  const handleMetacriticChange = (e) => { //FILTRO DE METACRITIC
-    const order = e.target.value;
-    setMetacriticOrder(order);
-    onMetacriticFilter(order);
+  const handleMetacriticChange = (selectedOption) => {
+    setMetacriticOrder(selectedOption);
+    onMetacriticFilter(selectedOption?.value || "");
   };
 
-  const handleRatingsChange = (e) => { //FILTRO DE RATINGS
-    const order = e.target.value;
-    setRatingsOrder(order);
-    onRatingsFilter(order);
+  const handleRatingsChange = (selectedOption) => {
+    setRatingsOrder(selectedOption);
+    onRatingsFilter(selectedOption?.value || "");
   };
 
-  const handleReleaseDateChange = (e) => { //FILTRO DE ANTIGÜEDAD (MEJOR QUE EL DE FECHA)
-    const value = e.target.value;
-    setReleaseDateFilter(value);
-    onReleaseDateFilter(value);
+  const handleReleaseDateChange = (selectedOption) => {
+    setReleaseDateFilter(selectedOption);
+    onReleaseDateFilter(selectedOption?.value || "");
   };
 
   return (
     <div className="mb-4">
       <h3>Filter:</h3>
-      <div className="d-flex flex-row justify-content-between ">
+      <div className="d-flex flex-row justify-content-between">
         <div>
           <h5>By price</h5>
           <input
             type="range"
             min="10"
-            max="200" //ESTO SE PUEDE REVISAR Y EL DEL MÍNIMO TAMBIÉN 
+            max="200"
             value={price}
             onChange={handlePriceChange}
           />
@@ -52,27 +100,33 @@ const Filter = ({
         </div>
         <div>
           <h5>By Metacritic</h5>
-          <select value={metacriticOrder} onChange={handleMetacriticChange}>
-            <option value="">No filter</option>
-            <option value="asc">Low to High</option>
-            <option value="desc">High to Low</option>
-          </select>
+          <Select
+            value={metacriticOrder}
+            onChange={handleMetacriticChange}
+            options={metacriticOptions}
+            isClearable
+            styles={customStyles}
+          />
         </div>
         <div>
           <h5>By ratings</h5>
-          <select value={ratingsOrder} onChange={handleRatingsChange}>
-            <option value="">No filter</option>
-            <option value="asc">Low to High</option>
-            <option value="desc">High to Low</option>
-          </select>
+          <Select
+            value={ratingsOrder}
+            onChange={handleRatingsChange}
+            options={ratingsOptions}
+            isClearable
+            styles={customStyles}
+          />
         </div>
         <div>
           <h5>By release date</h5>
-          <select value={releaseDateFilter} onChange={handleReleaseDateChange}>
-            <option value="">No filter</option>
-            <option value="recent">Recent Games</option>
-            <option value="older">Older Games</option>
-          </select>
+          <Select
+            value={releaseDateFilter}
+            onChange={handleReleaseDateChange}
+            options={releaseDateOptions}
+            isClearable
+            styles={customStyles}
+          />
         </div>
       </div>
     </div>
@@ -80,3 +134,4 @@ const Filter = ({
 };
 
 export default Filter;
+
